@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AOOP_Homework2"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AOOP_Homework2.Login"
+        Title="Login">
+    <Window.DataContext>
+        <local:LoginViewModel/>
+    </Window.DataContext>
+    <TabControl HorizontalAlignment="Center">
+      <TabItem Header="Student">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Username:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Name="Username" Width="200" Margin="5"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Password:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Name="Password" Width="200" Margin="5" PasswordChar="*" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="LoginButton" Content="Login" Click="LoginButton_Click" Margin="5"/>
+            <Button Name="RegisterButton" Content="Register" Click="RegisterButton_Click" Margin="5"/>
+        </StackPanel>
+    </DockPanel>
+    </TabItem>
+    <TabItem Header="Teacher">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Username:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Name="TeacherUsername" Width="200" Margin="5"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Password:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Name="TeacherPassword" Width="200" Margin="5" PasswordChar="*" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="TeacherLoginButton" Content="Login" Click="TeacherLoginButton_Click" Margin="5"/>
+            <Button Name="TeacherRegisterButton" Content="Register" Click="TeacherRegisterButton_Click" Margin="5"/>
+        </StackPanel>
+    </DockPanel>
+    </TabItem>
+    </TabControl>
+</Window>
