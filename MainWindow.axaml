@@ -2,8 +2,140 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" 
+        d:DesignWidth="800" 
+        d:DesignHeight="450"
         x:Class="AOOP_Homework2.MainWindow"
-        Title="AOOP_Homework2">
-    Welcome to Avalonia!
+        Title="AOOP_Homework2"
+        Width="800" Height="600">
+    <DockPanel>
+        <!-- makes a brown background at the top -->
+        <Grid DockPanel.Dock="Top" 
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Top"
+              Height="40"
+              Background="SaddleBrown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Displays the student/teacher, full name and ID of the person at the top -->
+            <TextBlock Grid.Column="0"
+                       Margin="10 0"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Text="Blank_status"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"/>
+
+            <TextBlock Grid.Column="1"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Text="Blank_Name"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Grid.Column="2"
+                       Margin="10 0"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Text="Blank_ID"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"/>
+        </Grid>
+
+        <!-- makes 2 boxes, left one being 75% big (3/4) and right side is 25% big (1/4) -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left side Box "subjects" -->
+            <StackPanel Grid.Column="0" 
+                      Margin="10"
+                      Spacing="15">
+                      
+                <Border Background="SaddleBrown"
+                      Height="60"
+                      CornerRadius="4"
+                      Padding="12"
+                      HorizontalAlignment="Stretch">
+                    <!-- makes sure the boxes are in the right spot -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                 Text="Subject_Blank"
+                                 FontSize="14"
+                                 FontWeight="Bold"
+                                 Foreground="White"
+                                 HorizontalAlignment="Left"/>
+
+                        <TextBlock Grid.Row="1"
+                                 Text="Description: Blank"
+                                 FontSize="12"
+                                 Foreground="White"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Margin="0 2 0 0"/>
+
+                        <TextBlock Grid.Row="2" 
+                                 Text="Name_Prof_Blank"
+                                 FontSize="12"
+                                 FontStyle="Italic"
+                                 Foreground="White"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom"/>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <!-- visual line divider between the left and right -->
+            <Border Grid.Column="0" 
+                    Width="2" 
+                    Background="SaddleBrown" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Stretch"
+                    Margin="0 10"/>
+
+            <!-- Right side buttons, vertical stacking -->
+        <StackPanel Grid.Column="1" 
+                Margin="10"
+                Spacing="15"
+                VerticalAlignment="Top">
+            <!-- add subject -->
+            <Button Content="ADD SUBJECT" 
+                Height="60"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="16"
+                Name="AddSubjectButton"/>
+            
+            <!-- remove subject -->
+            <Button Content="REMOVE SUBJECT" 
+                Height="60"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="16"
+                Name="Action2Button"/>
+            <!--  -->
+            <Button Content="Action 3" 
+                Height="60"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="16"
+                Name="Action3Button"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Window>

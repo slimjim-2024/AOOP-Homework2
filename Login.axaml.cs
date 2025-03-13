@@ -16,7 +16,9 @@ public partial class Login : Window
 
     private void LoginButton_Click(object sender, RoutedEventArgs e)
     {
-
+        MainWindow mainWindow = new MainWindow();
+        mainWindow.Show();
+        Close();
         // var loginViewModel = (LoginViewModel)DataContext;
         
         // if (loginViewModel.Login())
