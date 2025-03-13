@@ -24,6 +24,7 @@
             <Button Name="LoginButton" Content="Login" Click="LoginButton_Click" Margin="5"/>
             <Button Name="RegisterButton" Content="Register" Click="RegisterButton_Click" Margin="5"/>
         </StackPanel>
+        <TextBlock DockPanel.Dock="Top" Foreground="Red" HorizontalAlignment="Center" Margin="5"/>
     </DockPanel>
     </TabItem>
     <TabItem Header="Teacher">

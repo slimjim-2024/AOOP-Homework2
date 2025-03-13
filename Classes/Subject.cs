@@ -5,9 +5,9 @@ namespace AOOP_Homework2;
 
 class Subject
 {
-    private protected Guid Id { get; } = Guid.NewGuid();
-    private protected string Name { get; set; }
-    private protected string Description { get; set; }
-    private protected Guid TeacherId { get; }
-    private protected List<Guid> StudentsEnrolled { get; set; } = [];
+    protected internal Guid Id { get; } = Guid.NewGuid();
+    protected internal string Name { get; set; } = "";
+    protected internal string Description { get; set; } = "";
+    protected internal Guid TeacherId { get; }
+    protected internal List<Guid> StudentsEnrolled { get; set; } = [];
 }

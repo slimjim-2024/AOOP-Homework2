@@ -9,5 +9,5 @@ class Teacher : IUser
     string IUser.Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     string IUser.Username { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     string IUser.Password { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    private protected List<Guid> Subjects { get; set; }
+    protected internal List<int> Subjects { get; set; } = new List<int>();
 }
