@@ -2,12 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" 
-        d:DesignWidth="800" 
-        d:DesignHeight="450"
-        x:Class="AOOP_Homework2.MainWindow"
-        Title="AOOP_Homework2"
-        Width="800" Height="600">
+        xmlns:local="clr-namespace:AOOP_Homework2"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AOOP_Homework2.StudentPage"
+        Title="StudentPage">
+
+        <Window.DataContext>
+            <local:StudentPageViewModel/>
+        </Window.DataContext>
     <DockPanel>
         <!-- makes a brown background at the top -->
         <Grid DockPanel.Dock="Top" 
@@ -22,6 +24,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Displays the student/teacher, full name and ID of the person at the top -->
+
             <TextBlock Grid.Column="0"
                        Margin="10 0"
                        FontSize="18"
@@ -57,7 +60,8 @@
             <StackPanel Grid.Column="0" 
                       Margin="10"
                       Spacing="15">
-                      
+              <ListBox Name="SubjectListBox">
+                <ListBoxItem>  
                 <Border Background="SaddleBrown"
                       Height="60"
                       CornerRadius="4"
@@ -95,7 +99,9 @@
                                  VerticalAlignment="Bottom"/>
                     </Grid>
                 </Border>
-            </StackPanel>
+              </ListBoxItem>
+              </ListBox>
+              </StackPanel>
 
             <!-- visual line divider between the left and right -->
             <Border Grid.Column="0" 
