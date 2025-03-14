@@ -3,11 +3,19 @@ using System.Collections.Generic;
 
 namespace AOOP_Homework2;
 
-class Teacher : IUser
+public class Teacher : IUser
 {
-    Guid IUser.Id { get; } = Guid.NewGuid();
-    string IUser.Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    string IUser.Username { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    string IUser.Password { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    protected internal List<int> Subjects { get; set; } = new List<int>();
+    public Guid Id { get; } = Guid.NewGuid();
+    public string Name { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+
+    public List<Guid> Subjects { get; set; } = [];
+
+    public Teacher(string name, string username, string password)
+    {
+        Name = name;
+        Username = username;
+        Password = password;
+    }
 }

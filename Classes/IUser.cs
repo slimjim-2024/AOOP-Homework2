@@ -4,9 +4,16 @@ namespace AOOP_Homework2;
 
 interface IUser
 {
-    protected internal Guid Id { get; } // Unique identifier
-    protected internal string Name { get; set; }
-    protected internal string Username { get; set; }
-    protected internal string Password { get; set; }
-    // Subjects, Enrolled Subjects in teacher/student
+    Guid Id { get; } // Globally unique identifier
+    string Name { get; set; }
+    string Username { get; set; }
+    string Password { get; set; }
+
+    /*
+    // For hashing later
+    void HashPassword()
+    {}
+    void VerifyPassword()
+    {}
+    */
 }
