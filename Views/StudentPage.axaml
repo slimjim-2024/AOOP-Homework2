@@ -5,6 +5,7 @@
         xmlns:local="clr-namespace:AOOP_Homework2"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AOOP_Homework2.StudentPage"
+        x:DataType="local:StudentPageViewModel"
         Title="StudentPage">
 
         <Window.DataContext>
@@ -60,8 +61,9 @@
             <StackPanel Grid.Column="0" 
                       Margin="10"
                       Spacing="15">
-              <ListBox Name="SubjectListBox">
-                <ListBoxItem>  
+              <ListBox Name="SubjectListBox" ItemsSource="{Binding EnrolledSubjects}">
+                <ListBox.ItemTemplate>
+                <DataTemplate>  
                 <Border Background="SaddleBrown"
                       Height="60"
                       CornerRadius="4"
@@ -76,14 +78,14 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0"
-                                 Text="Subject_Blank"
+                                 Text="{Binding Name}"
                                  FontSize="14"
                                  FontWeight="Bold"
                                  Foreground="White"
                                  HorizontalAlignment="Left"/>
 
                         <TextBlock Grid.Row="1"
-                                 Text="Description: Blank"
+                                 Text="Description: {Binding Description}"
                                  FontSize="12"
                                  Foreground="White"
                                  HorizontalAlignment="Left"
@@ -99,7 +101,8 @@
                                  VerticalAlignment="Bottom"/>
                     </Grid>
                 </Border>
-              </ListBoxItem>
+              </DataTemplate>
+              </ListBox.ItemTemplate>
               </ListBox>
               </StackPanel>
 

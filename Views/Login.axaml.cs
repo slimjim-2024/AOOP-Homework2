@@ -29,7 +29,7 @@ public partial class Login : Window
     private const int iterations = 350000;
     private HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA256;
 
-    private Guid ValidateLogin(string username, string password, AccountType role)
+    private Guid ValidateLogin(string? username, string? password, AccountType role, ref Student? student)
      {
 
         if (role == AccountType.Teacher)
@@ -41,20 +41,19 @@ public partial class Login : Window
             {
                 return ((IUser)teacher).Id;
             }
+            
         }
         else if (role == AccountType.Student)
         {
             List<Student> users = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json")) ?? new List<Student>();
  
-            Student? student = (Student?)users.Find(user => ((IUser)user).Username == username && ((IUser)user).Password == password);
+            student = (Student?)users.Find(user => ((IUser)user).Username == username && ((IUser)user).Password == password);
             if (student != null)
             {
                 return ((IUser)student).Id;
             }
         }
-        else
-            ((LoginViewModel)DataContext).OutputFail = "Login failed!";
-            return Guid.Empty;
+        return Guid.Empty;
     }
     // {
     //     string path = role switch
@@ -81,11 +80,12 @@ public partial class Login : Window
     // Try to avoid duplication in teacher and student login code
     private void LoginButton_Click(object sender, RoutedEventArgs e)
     {
-        var loginVM = (LoginViewModel)DataContext;
+        var loginVM = (LoginViewModel?)DataContext;
+        Student? student = null;
         // Add pre-check that username and password aren't null
-        if(ValidateLogin(Username.Text, Password.Text, AccountType.Student) != Guid.Empty)
+        if(ValidateLogin(Username.Text, Password.Text, AccountType.Student, ref student) != Guid.Empty)
         {
-            StudentPage studentPage = new StudentPage();
+            StudentPage studentPage = new StudentPage(student);
             studentPage.Show();
             Close();
         }
@@ -108,15 +108,18 @@ public partial class Login : Window
         Console.WriteLine("Login button clicked! Username: {0}, Password: {1}", Username.Text, Password.Text);
     }private void TeacherLoginButton_Click(object sender, RoutedEventArgs e)
     {
-        // var loginViewModel = (LoginViewModel)DataContext;
-        
-        // if (loginViewModel.Login())
+        // var loginVM = (LoginViewModel?)DataContext;
+        // Teacher? teacher = null;
+        // // Add pre-check that username and password aren't null
+        // if(ValidateLogin(Username.Text, Password.Text, AccountType.Teacher, ref Student) teacher) != Guid.Empty)
         // {
-        //     MessageBox.Show("Login successful!");
+        //     // StudentPage studentPage = new StudentPage();
+        //     // studentPage.Show();
+        //     Close();
         // }
         // else
         // {
-        //     MessageBox.Show("Login failed!");
+        //     loginVM.OutputFail = "Login failed!";
         // }
         Console.WriteLine("Login button clicked! Username: {0}, Password: {1}", TeacherUsername.Text, TeacherPassword.Text);
     }
