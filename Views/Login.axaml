@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AOOP_Homework2"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:DataType="local:LoginViewModel"
         x:Class="AOOP_Homework2.Login"
         Title="Login">
     <Window.DataContext>
@@ -21,10 +22,10 @@
             <TextBox Name="Password" Width="200" Margin="5" PasswordChar="*" />
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="LoginButton" Content="Login" Click="LoginButton_Click" Margin="5"/>
+            <Button Name="LoginButton" Content="Login" Click="LoginButton_Click" Margin="5" HotKey="Enter"/>
             <Button Name="RegisterButton" Content="Register" Click="RegisterButton_Click" Margin="5"/>
         </StackPanel>
-        <TextBlock DockPanel.Dock="Top" Foreground="Red" HorizontalAlignment="Center" Margin="5"/>
+        <TextBlock DockPanel.Dock="Top" Foreground="Red" HorizontalAlignment="Center" Margin="5" Text="{Binding OutputFail}"/>
     </DockPanel>
     </TabItem>
     <TabItem Header="Teacher">
