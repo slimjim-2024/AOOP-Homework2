@@ -1,3 +1,2 @@
-[{"Id":"33b50a6d-9d6f-41fa-9d8e-b6a0e89d9566","Name":"Valida","Username":"vdemschke0","Password":"fV6?6PL(u","Subjects":[]},
-{"Id":"fdcbe504-9f10-4952-8768-785d8fc02298","Name":"Alleyn","Username":"abenn1","Password":"rM8{3xW1&Wb`ov8","Subjects":[]},
-{"Id":"bc7b528a-d7f9-42d5-8b84-0b7ed1ca2650","Name":"Parke","Username":"pdivis2","Password":"pU7~LjSc0$z'","Subjects":[]}]
+[{"Id":"33b50a6d-9d6f-41fa-9d8e-b6a0e89d9566","Name":"Valida","Username":"vdemschke0","Password":"fV6?6PL(u","Subjects":["3ca01a5c-12d9-4e61-9df4-37a39ea96622"]},
+{"Id":"fdcbe504-9f10-4952-8768-785d8fc02298","Name":"Alleyn","Username":"abenn1","Password":"rM8{3xW1&Wb`ov8","Subjects":[]},{"Id":"bc7b528a-d7f9-42d5-8b84-0b7ed1ca2650","Name":"Parke","Username":"pdivis2","Password":"pU7~LjSc0$z'","Subjects":[]}]

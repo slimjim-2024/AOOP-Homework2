@@ -30,14 +30,14 @@
                        Margin="10 0"
                        FontSize="18"
                        FontWeight="Bold"
-                       Text="Blank_status"
+                       Text="Student"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"/>
 
             <TextBlock Grid.Column="1"
                        FontSize="18"
                        FontWeight="Bold"
-                       Text="Blank_Name"
+                       Text="{Binding StudentName}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
 
@@ -45,7 +45,7 @@
                        Margin="10 0"
                        FontSize="18"
                        FontWeight="Bold"
-                       Text="Blank_ID"
+                       Text="{Binding StudentId}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"/>
         </Grid>

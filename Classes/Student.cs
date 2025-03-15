@@ -19,8 +19,4 @@ public class Student : IUser
         Password = password;
     }
 
-    public static explicit operator Student(Teacher? v)
-    {
-        throw new NotImplementedException();
-    }
 }

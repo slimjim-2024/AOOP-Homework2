@@ -12,9 +12,14 @@ public partial class StudentPageViewModel : ObservableObject
     private Student currentStudent;
 
     [ObservableProperty]
+    private string _studentName = "";
+    [ObservableProperty]
+    private string _studentId = "";
+
+    [ObservableProperty]
     public List<Subject> _enrolledSubjects = [];
 
-    private List<Subject> StudentSubjects = [];
+    protected internal List<Subject> StudentSubjects = [];
     private List<Teacher> Teachers = [];
     public StudentPageViewModel()
     {
@@ -23,6 +28,7 @@ public partial class StudentPageViewModel : ObservableObject
     public StudentPageViewModel(Student student)
     {
         currentStudent = student;
+
         using (StreamReader sr = new("subjects.json"))
             {
                 StudentSubjects = JsonSerializer.Deserialize<List<Subject>>(sr.ReadToEnd())?? [];
@@ -31,7 +37,5 @@ public partial class StudentPageViewModel : ObservableObject
             {
                 Teachers = JsonSerializer.Deserialize<List<Teacher>>(sr.ReadToEnd())?? [];
             }
-        EnrolledSubjects = StudentSubjects.FindAll(sub => sub.StudentsEnrolled.Contains(currentStudent.Id));
-        Teachers = Teachers.FindAll(teach => EnrolledSubjects.Exists(sub => sub.TeacherId == teach.Id));
     }
 }
