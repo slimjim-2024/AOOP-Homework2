@@ -17,8 +17,6 @@ enum AccountType{
 }
 public partial class Login : Window
 {
-
-
     public Login()
     {
         InitializeComponent();
@@ -29,14 +27,20 @@ public partial class Login : Window
     private const int iterations = 350000;
     private HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA256;
 
-    private Guid ValidateLogin(string? username, string? password, AccountType role, ref Student? student)
-     {
-
+    private static Guid ValidateLogin(string? username, string? password, AccountType role, ref Student? student)
+    {
+        // Student test account's username and password is 1234
+        
         if (role == AccountType.Teacher)
         {
-            List<Teacher> users = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")) ?? new List<Teacher>();
+            List<Teacher> users = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")) ?? [];
             
-            Teacher? teacher = users.Find(user => ((IUser)user).Username == username && ((IUser)user).Password == password);
+            // Tries to find match in username and password
+            Teacher? teacher = users.Find(
+                user => user.Username == username &&
+                PasswordManager.VerifyPassword(password, user.HashedPassword)
+            );
+            // If found
             if (teacher != null)
             {
                 return ((IUser)teacher).Id;
@@ -45,9 +49,12 @@ public partial class Login : Window
         }
         else if (role == AccountType.Student)
         {
-            List<Student> users = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json")) ?? new List<Student>();
+            List<Student> users = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json")) ?? [];
  
-            student = (Student?)users.Find(user => ((IUser)user).Username == username && ((IUser)user).Password == password);
+            student = users.Find(
+                user => user.Username == username &&
+                PasswordManager.VerifyPassword(password, user.HashedPassword)
+            );
             if (student != null)
             {
                 return ((IUser)student).Id;
@@ -55,29 +62,7 @@ public partial class Login : Window
         }
         return Guid.Empty;
     }
-    // {
-    //     string path = role switch
-    //     {
-    //         AccountType.Teacher => "teacher.json",
-    //         AccountType.Student => "students.json",
-    //         _ => ""
-    //     };
 
-    //     /*
-    //     Gets list of users by deserializing JSON file
-    //     When deserializing,
-    //     any JSON properties that aren't represented in the class are ignored by default,
-    //     so this method can be used for accounts with different roles
-    //     */
-    //     List<IUser> users = JsonSerializer.Deserialize<List<IUser>>(File.ReadAllText(path)) ?? [];
-
-    //     // Try to find match
-    //     IUser? user = users.Find(user => user.Username == username && user.Password == password);
-    //     if (user != null) return user.Id;
-    //     return Guid.Empty;
-    // }
-
-    // Try to avoid duplication in teacher and student login code
     private void LoginButton_Click(object sender, RoutedEventArgs e)
     {
         var loginVM = (LoginViewModel?)DataContext;

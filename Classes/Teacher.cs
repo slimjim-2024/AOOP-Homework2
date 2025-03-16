@@ -8,14 +8,14 @@ public class Teacher : IUser
     public Guid Id { get; set;} = Guid.NewGuid();
     public string Name { get; set; }
     public string Username { get; set; }
-    public string Password { get; set; }
+    public string HashedPassword { get; set; }
 
     public List<Guid> Subjects { get; set; } = [];
 
-    public Teacher(string name, string username, string password)
+    public Teacher(string name, string username, string hashedPassword)
     {
         Name = name;
         Username = username;
-        Password = password;
+        HashedPassword = hashedPassword;
     }
 }

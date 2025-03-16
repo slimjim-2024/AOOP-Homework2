@@ -4,16 +4,10 @@ namespace AOOP_Homework2;
 
 interface IUser
 {
-    Guid Id { get; set;} // Globally unique identifier
+    Guid Id { get; } // Globally unique identifier
     string Name { get; set; }
     string Username { get; set; }
-    string Password { get; set; }
-
-    /*
-    // For hashing later
-    void HashPassword()
-    {}
-    void VerifyPassword()
-    {}
-    */
+    string HashedPassword { get; set; }
+    // Might add salt later
+    // (string HashedPassword, string Salt) HashPass { get; set; }
 }
