@@ -116,9 +116,9 @@
                 Margin="10"
                 Spacing="15"
                 VerticalAlignment="Stretch" Orientation="Vertical">
-            <TextBlock Text="{Binding SelectedSubject.Name, FallbackValue=No info available}"/>
-            <TextBlock Text="{Binding SelectedSubject.TeacherName, FallbackValue=No info available}"/>
-            <TextBlock Text="{Binding SelectedSubject.Description, FallbackValue=No info available}"/>
+            <TextBlock Text="{Binding SelectedSubject.Name, FallbackValue=No info available}" TextWrapping="Wrap"/>
+            <TextBlock Text="{Binding SelectedSubject.TeacherName, FallbackValue=No info available}" TextWrapping="Wrap"/>
+            <TextBlock Text="{Binding SelectedSubject.Description, FallbackValue=No info available}" TextWrapping="Wrap"/>
             <!-- add subject -->
             <Button Content="ADD SUBJECT" 
                 Height="60"
