@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Text.Json;
+using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace AOOP_Homework2;
+
+public partial class TeacherPageViewModel : ObservableObject
+{
+    private Teacher currentTeacher;
+
+    [ObservableProperty]
+    private string _teacherName = "";
+    [ObservableProperty]
+    private string _teacherId = "";
+
+    [ObservableProperty]
+    public List<Subject> _taughtSubjects = [];
+
+    protected internal List<Subject> TeacherSubjects = [];
+    private List<Student> Students = [];
+    public TeacherPageViewModel()
+    {
+    }
+    public TeacherPageViewModel(Teacher teacher)
+    {
+        currentTeacher = teacher;
+
+        using (StreamReader sr = new("subjects.json"))
+            {
+                TeacherSubjects = JsonSerializer.Deserialize<List<Subject>>(sr.ReadToEnd())?? [];
+            }
+        using (StreamReader sr = new("students.json"))
+            {
+                Students = JsonSerializer.Deserialize<List<Student>>(sr.ReadToEnd())?? [];
+            }
+    }
+}

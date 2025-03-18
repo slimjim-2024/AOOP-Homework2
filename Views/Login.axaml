@@ -22,8 +22,7 @@
             <TextBox Name="Password" Width="200" Margin="5" PasswordChar="*" />
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="LoginButton" Content="Login" Click="LoginButton_Click" Margin="5" HotKey="Enter"/>
-            <Button Name="RegisterButton" Content="Register" Click="RegisterButton_Click" Margin="5"/>
+            <Button Name="LoginButton" Content="Login" Click="StudentLoginButton_Click" Margin="5" HotKey="Enter"/>
         </StackPanel>
         <TextBlock DockPanel.Dock="Top" Foreground="Red" HorizontalAlignment="Center" Margin="5" Text="{Binding OutputFail}"/>
     </DockPanel>
@@ -40,7 +39,6 @@
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Name="TeacherLoginButton" Content="Login" Click="TeacherLoginButton_Click" Margin="5"/>
-            <Button Name="TeacherRegisterButton" Content="Register" Click="TeacherRegisterButton_Click" Margin="5"/>
         </StackPanel>
     </DockPanel>
     </TabItem>
