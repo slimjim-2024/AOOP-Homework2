@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AOOP_Homework2"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AOOP_Homework2.TeacherPage"
+        x:DataType="local:TeacherPageViewModel"
+        Title="TeacherPage">
+
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Background="DarkSlateBlue" Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Margin="10" Text="Teacher" 
+                     FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Text="{Binding TeacherName}" 
+                     FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left side - Teaching Subjects -->
+            <StackPanel Grid.Column="0" Margin="10" Spacing="15">
+                <ListBox ItemsSource="{Binding TeachingSubjects}" 
+                        SelectedItem="{Binding SelectedSubject, Mode=OneWayToSource}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="DarkSlateBlue" CornerRadius="4" Padding="12">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Foreground="WhiteSmoke"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+
+            <!-- Right side - Edit Panel -->
+            <StackPanel Grid.Column="1" Margin="10" Spacing="15">
+                <TextBox Text="{Binding SelectedSubject.Name, Mode=TwoWay}" 
+                       Watermark="Subject Name" FontSize="16"/>
+                <TextBox Text="{Binding SelectedSubject.Description, Mode=TwoWay}" 
+                       Watermark="Description" AcceptsReturn="True" TextWrapping="Wrap"
+                       Height="100" FontSize="14"/>
+                
+                <Button Content="Save Changes" Click="SaveChanges_Click" 
+                      Height="40" FontSize="16"/>
+                
+                <Button Content="Create New Subject" Click="CreateSubject_Click" 
+                      Height="40" FontSize="16"/>
+                
+                <ListBox ItemsSource="{Binding EnrolledStudents}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" FontSize="14" Margin="5"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>

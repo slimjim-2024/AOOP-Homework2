@@ -60,15 +60,15 @@ public partial class Login : Window
         var loginVM = (LoginViewModel?)DataContext;            
             // Tries to find match in username and password
             Teacher? teacher = Teachers.Find(
-                user => user.Username == Username.Text &&
-                PasswordManager.VerifyPassword(Password.Text, user.HashedPassword)
+                user => user.Username == TeacherUsername.Text &&
+                PasswordManager.VerifyPassword(TeacherPassword.Text, user.HashedPassword)
             );
             // If found
             if (teacher != null)
             {
-                // TeacherPage teacherPage = new(teacher);
-                // teacherPage.Show();
-                // Close();
+                TeacherPage teacherPage = new(teacher, ref Subjects, ref Students, ref Teachers);
+                teacherPage.Show();
+                Close();
 
             }
         Debug.WriteLine("Login button clicked! Username: {0}, Password: {1}", TeacherUsername.Text, TeacherPassword.Text);
