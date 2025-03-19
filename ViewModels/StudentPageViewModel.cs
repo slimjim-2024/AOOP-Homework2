@@ -10,7 +10,9 @@ namespace AOOP_Homework2;
 
 public partial class StudentPageViewModel : ObservableObject
 {
-    private Student currentStudent;
+    protected internal Student currentStudent;
+    protected internal int currentStudentIndex;
+    
 
     [ObservableProperty]
     private string _studentName = "";
@@ -28,7 +30,8 @@ public partial class StudentPageViewModel : ObservableObject
     private ObservableCollection<SubjectDisplay> _availableSubects = [];
 
     protected internal List<Subject> AllSubjects = [];
-    private List<Teacher> Teachers = [];
+    protected internal List<Teacher> Teachers = [];
+    protected internal List<Student> Students = [];
     public StudentPageViewModel()
     {
         // Parameterless constructor for Avalonia
@@ -51,6 +54,55 @@ public partial class StudentPageViewModel : ObservableObject
             }).ToList());
         
     }
+    public StudentPageViewModel(Student student, ref List<Subject> subjects, ref List<Student> students, ref List<Teacher> teachers)
+    {
+        currentStudent = student;
+        AllSubjects = subjects;
+        Teachers = teachers;
+        Students = students;
+        currentStudentIndex = students.FindIndex(s => s.Id == student.Id);
+        
+
+        // Get enrolled subjects with teacher names
+        EnrolledSubjects =new( AllSubjects
+            .Where(s => s.StudentsEnrolled.Contains(currentStudent.Id))
+            .Select(s => new SubjectDisplay
+            {
+                Name = s.Name,
+                Description = s.Description,
+                TeacherName = Teachers.Find(t => t.Id == s.TeacherId)?.Name ?? "Unknown Teacher",
+                Id = s.Id
+            }).ToList());
+        
+        AvailableSubects = new(AllSubjects
+            .Where(s => !s.StudentsEnrolled.Contains(currentStudent.Id))
+            .Select(s => new SubjectDisplay
+            {
+                Name = s.Name,
+                Description = s.Description,
+                TeacherName = Teachers.Find(t => t.Id == s.TeacherId)?.Name ?? "Unknown Teacher",
+                Id = s.Id
+            }).ToList());
+        
+        Students[currentStudentIndex].EnrolledSubjects = EnrolledSubjects.Select(s => s.Id).ToList();
+        
+    }
+
+    protected internal void SaveAll()
+    {
+        File.WriteAllText("subjects.json", JsonSerializer.Serialize(AllSubjects, new JsonSerializerOptions {WriteIndented = true}));
+        File.WriteAllText("teachers.json", JsonSerializer.Serialize(Teachers, new JsonSerializerOptions {WriteIndented = true}));
+        File.WriteAllText("students.json", JsonSerializer.Serialize(Students, new JsonSerializerOptions {WriteIndented = true}));
+    }
+
+    protected internal void RegisterCourse(SubjectDisplay subject)
+    {
+        EnrolledSubjects.Add(subject);
+        AvailableSubects.Remove(subject);
+        AllSubjects.Find(s => s.Id == subject.Id)?.StudentsEnrolled.Add(currentStudent.Id);
+        Students[currentStudentIndex].EnrolledSubjects.Add(subject.Id);
+    }
+
 }
 
 public class SubjectDisplay

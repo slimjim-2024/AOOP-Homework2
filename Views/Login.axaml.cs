@@ -18,10 +18,17 @@ enum AccountType{
 }
 public partial class Login : Window
 {
+    protected internal List<Student> Students;
+    protected internal List<Teacher> Teachers;
+    protected internal List<Subject> Subjects;
     public Login()
     {
         InitializeComponent();
         DataContext = new LoginViewModel();
+        Students = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json")) ?? [];
+        Teachers = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")) ?? [];
+        Subjects = JsonSerializer.Deserialize<List<Subject>>(File.ReadAllText("subjects.json")) ?? [];
+
 
     }
     private const int keySize = 64;
@@ -31,15 +38,14 @@ public partial class Login : Window
     private void StudentLoginButton_Click(object sender, RoutedEventArgs e)
     {
         var loginVM = (LoginViewModel?)DataContext;
-        List<Student> users = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json")) ?? [];
  
-            Student? student = users.Find(
+            Student? student = Students.Find(
                 user => user.Username == Username.Text &&
                 PasswordManager.VerifyPassword(Password.Text, user.HashedPassword)
             );
             if (student != null)
             {
-            StudentPage studentPage = new(student);
+            StudentPage studentPage = new(student, ref Subjects, ref Students, ref Teachers);
             studentPage.Show();
             Close();
             }
@@ -51,11 +57,9 @@ public partial class Login : Window
         Debug.WriteLine("Login button clicked! Username: {0}, Password: {1}", Username.Text, Password.Text);
     }private void TeacherLoginButton_Click(object sender, RoutedEventArgs e)
     {
-        var loginVM = (LoginViewModel?)DataContext;
-            List<Teacher> users = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")) ?? [];
-            
+        var loginVM = (LoginViewModel?)DataContext;            
             // Tries to find match in username and password
-            Teacher? teacher = users.Find(
+            Teacher? teacher = Teachers.Find(
                 user => user.Username == Username.Text &&
                 PasswordManager.VerifyPassword(Password.Text, user.HashedPassword)
             );

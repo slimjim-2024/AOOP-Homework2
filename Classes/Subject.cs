@@ -5,7 +5,7 @@ namespace AOOP_Homework2;
 
  public class Subject
 {
-    public Guid Id { get; } = Guid.NewGuid();
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = "";
     public string Description { get; set; } = "";
     public Guid TeacherId { get; set; }

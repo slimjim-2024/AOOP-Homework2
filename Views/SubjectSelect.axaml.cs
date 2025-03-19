@@ -19,8 +19,8 @@ public partial class SubjectSelect : Window
     }
     private void AddSubject(object sender, RoutedEventArgs e)
     {
-        Reference.EnrolledSubjects.Add(ViewModel.Subject);
-        Reference.AvailableSubects.Remove(ViewModel.Subject);
+        if(ViewModel.Subject == null) return;
+        Reference.RegisterCourse(ViewModel.Subject);
         this.Close();
     }
 }

@@ -5,7 +5,7 @@ namespace AOOP_Homework2;
 
 public class Teacher : IUser
 {
-    public Guid Id { get; set;} = Guid.NewGuid();
+    public Guid Id { get; set;}
     public string Name { get; set; }
     public string Username { get; set; }
     public string HashedPassword { get; set; }
