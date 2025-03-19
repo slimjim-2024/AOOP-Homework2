@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -8,17 +10,19 @@ namespace AOOP_Homework2;
 public partial class StudentPage : Window
 {
     StudentPageViewModel ViewModel;
-    Student currentStudent;
+    Student Student;
+    Guid Id;
 
     //
-    public StudentPage(Student student)
+    public StudentPage(KeyValuePair<Guid, Student> student, DataDicts dataDicts)
     {
         InitializeComponent();
-        currentStudent = student;
-        DataContext = new StudentPageViewModel(currentStudent);
+
+        Student = student.Value;
+        Id = student.Key;
+
+        DataContext = new StudentPageViewModel(Student, Id, dataDicts);
         ViewModel = (StudentPageViewModel)DataContext;
-        ViewModel.StudentName = currentStudent.Name;
-        ViewModel.StudentId = currentStudent.Id.ToString();
     }
 
     //

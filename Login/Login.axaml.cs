@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -16,57 +17,45 @@ enum AccountType{
     Student,
     Teacher
 }
+
 public partial class Login : Window
 {
+    public DataDicts DataDicts = new(); // Stores student, teacher and subject data
+public Dictionary<Guid, Student> Students { get; set; } = JsonSerializer.Deserialize<Dictionary<Guid, Student>>(File.ReadAllText("students.json")) ?? [];
     public Login()
     {
         InitializeComponent();
         DataContext = new LoginViewModel();
-
     }
-    private const int keySize = 64;
-    private const int iterations = 350000;
-    private HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA256;
 
+    // Student Login
     private void StudentLoginButton_Click(object sender, RoutedEventArgs e)
     {
         var loginVM = (LoginViewModel?)DataContext;
-        List<Student> users = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json")) ?? [];
- 
-            Student? student = users.Find(
-                user => user.Username == Username.Text &&
-                PasswordManager.VerifyPassword(Password.Text, user.HashedPassword)
-            );
-            if (student != null)
-            {
-            StudentPage studentPage = new(student);
+
+        // Tries to find student with given credentials
+        var student = DataDicts.Students.FirstOrDefault(s => s.Value.Username == Username.Text && PasswordManager.VerifyPassword(Password.Text, s.Value.HashedPassword));
+        // If found
+        if (student.Key != Guid.Empty)
+        {
+            var studentPage = new StudentPage(student, DataDicts);
             studentPage.Show();
             Close();
-            }
-            else
-            {
-                loginVM.OutputFail = "Login failed!";
-            }
+        }
+        else
+        {
+            loginVM.OutputFail = "Login failed!";
+        }
 
         Debug.WriteLine("Login button clicked! Username: {0}, Password: {1}", Username.Text, Password.Text);
-    }private void TeacherLoginButton_Click(object sender, RoutedEventArgs e)
+    }
+
+    // Teacher Login
+    private void TeacherLoginButton_Click(object sender, RoutedEventArgs e)
     {
         var loginVM = (LoginViewModel?)DataContext;
             List<Teacher> users = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")) ?? [];
             
-            // Tries to find match in username and password
-            Teacher? teacher = users.Find(
-                user => user.Username == Username.Text &&
-                PasswordManager.VerifyPassword(Password.Text, user.HashedPassword)
-            );
-            // If found
-            if (teacher != null)
-            {
-                // TeacherPage teacherPage = new(teacher);
-                // teacherPage.Show();
-                // Close();
-
-            }
         Debug.WriteLine("Login button clicked! Username: {0}, Password: {1}", TeacherUsername.Text, TeacherPassword.Text);
     }
 }

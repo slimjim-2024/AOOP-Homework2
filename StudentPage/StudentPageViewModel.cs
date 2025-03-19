@@ -11,10 +11,11 @@ namespace AOOP_Homework2;
 
 public partial class StudentPageViewModel : ObservableObject
 {
-    private Student currentStudent;
-    private Dictionary<Guid, Subject> allSubjects = [];
-    private Dictionary<Guid, Teacher> teachers = [];
-
+    private Student Student;
+    private Dictionary<Guid, Teacher> Teachers { get; set; } = JsonSerializer.Deserialize<Dictionary<Guid, Teacher>>(File.ReadAllText("teachers.json")) ?? [];
+    private Dictionary<Guid, Student> Students { get; set; } = JsonSerializer.Deserialize<Dictionary<Guid, Student>>(File.ReadAllText("students.json")) ?? [];
+    private Dictionary<Guid, Subject> Subjects { get; set; } = JsonSerializer.Deserialize<Dictionary<Guid, Subject>>(File.ReadAllText("subjects.json")) ?? [];
+    
     // Observable Properties
     [ObservableProperty]
     private string _studentName = "";
@@ -31,38 +32,43 @@ public partial class StudentPageViewModel : ObservableObject
     {
         // Parameterless constructor for Avalonia
     }
-    public StudentPageViewModel(Student student)
+    public StudentPageViewModel(Student student, Guid studentId, DataDicts dataDicts)
     {
-        currentStudent = student;
+        Student = student;
 
-        StudentName = currentStudent.Name;
-        StudentId = currentStudent.Id.ToString();
+        StudentName = student.Name;
+        StudentId = studentId.ToString();
         
-        teachers = JsonSerializer.Deserialize<Dictionary<Guid, Teacher>>(File.ReadAllText("teachers.json")) ?? [];
-        allSubjects = JsonSerializer.Deserialize<Dictionary<Guid, Subject>>(File.ReadAllText("subjects.json")) ?? [];
+        Subjects = dataDicts.Subjects;
+        Teachers = dataDicts.Teachers;
         
+        SetSubjectCollections();
+    }
+    
+    // Adds subjects to EnrolledSubjects and AvailableSubjects for display
+    private void SetSubjectCollections()
+    {
         // Gets subjects in currentStudent.EnrolledSubjects and adds them to EnrolledSubjects
-        foreach (Guid id in currentStudent.EnrolledSubjects)
+        foreach (Guid id in Student.EnrolledSubjects)
         {
-            if (allSubjects.TryGetValue(id, out Subject? subject)) {
+            if (Subjects.TryGetValue(id, out Subject? subject)) {
                 EnrolledSubjects.Add(CompleteSubject(subject));
-                allSubjects.Remove(id);
+                // 
+                Subjects.Remove(id);
             }
         }
         // Adds other subjects to AvailableSubjects
-        foreach (KeyValuePair<Guid, Subject> pair in allSubjects)
+        foreach (KeyValuePair<Guid, Subject> pair in Subjects)
         {
             AvailableSubjects.Add(CompleteSubject(pair.Value));
         }
-        // foreach (Subject x in AvailableSubjects) Console.WriteLine(x.Name);
     }
 
+    // Adds data needed for subject display not saved in JSON file
     private Subject CompleteSubject(Subject subject)
     {
-        // subject.Id = id;
-
         // Tries to find subject's teacher in Teachers dict
-        if (teachers.TryGetValue(subject.TeacherId, out Teacher? t))
+        if (Teachers.TryGetValue(subject.TeacherId, out Teacher? t))
         {
             subject.TeacherName = t.Name;
         }
