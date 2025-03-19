@@ -1,4 +1,3 @@
-
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
@@ -15,12 +14,13 @@ public partial class SubjectSelect : Window
         DataContext = new SubjectSelectViewModel(ref viewModel);
         ViewModel = (SubjectSelectViewModel) DataContext;
         Reference = viewModel;
-
     }
     private void AddSubject(object sender, RoutedEventArgs e)
     {
+        if (ViewModel.Subject is null) return;
+
         Reference.EnrolledSubjects.Add(ViewModel.Subject);
-        Reference.AvailableSubects.Remove(ViewModel.Subject);
+        Reference.AvailableSubjects.Remove(ViewModel.Subject);
         this.Close();
     }
 }
