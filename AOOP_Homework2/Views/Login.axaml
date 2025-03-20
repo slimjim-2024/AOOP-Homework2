@@ -60,7 +60,13 @@
                         Content="Login" 
                         Click="TeacherLoginButton_Click" 
                         Margin="5"/>
-            </StackPanel>
+</StackPanel>
+            <TextBlock DockPanel.Dock="Top" 
+                       Foreground="Red" 
+                       HorizontalAlignment="Center" 
+                       Margin="5" 
+                       Text="{Binding OutputFail}"/>
+            
         </DockPanel>
       </TabItem>
     </TabControl>
