@@ -20,9 +20,9 @@ namespace AOOP_Homework2.Tests
             var loginWindow = new Login();
             var vm = loginWindow.DataContext as LoginViewModel ?? new LoginViewModel();
             
-            // Use credentials from students.json
+            // Use credentials stored in students.json
             vm.Username = "1234"; // Existing username
-            vm.Password = "1234"; // Password is hashed as "1234"
+            vm.Password = "1234"; // Password before hashing
             loginWindow.FindControl<TextBox>("Username").Text = "1234";
             loginWindow.FindControl<TextBox>("Password").Text = "1234";
 
@@ -60,9 +60,29 @@ namespace AOOP_Homework2.Tests
             var loginWindow = new Login();
             var vm = loginWindow.DataContext as LoginViewModel ?? new LoginViewModel();
             
-            // Use credentials from teachers.json
-            vm.TeacherUsername = "vdemschke0"; // Existing teacher username
-            vm.TeacherPassword = "fV6?6PL(u";  // Password from teachers.json
+            // Use credentials stored in teachers.json
+            vm.TeacherUsername = "1234"; // Existing teacher username
+            vm.TeacherPassword = "1234";  // Password before hashing
+            loginWindow.FindControl<TextBox>("TeacherUsername").Text = "1234";
+            loginWindow.FindControl<TextBox>("TeacherPassword").Text = "1234";
+
+            // Act
+            loginWindow.FindControl<Button>("TeacherLoginButton")
+                    .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+            // Assert
+            Assert.Equal(string.Empty, vm.OutputFail);
+        }
+
+        [AvaloniaFact]
+        public void TeacherLogin_InalidCredentials_Failure()
+        {
+            // Arrange
+            var loginWindow = new Login();
+            var vm = loginWindow.DataContext as LoginViewModel ?? new LoginViewModel();
+            
+            vm.TeacherUsername = "1234"; // Right user
+            vm.TeacherPassword = "notCorrect"; // Wrong password
             loginWindow.FindControl<TextBox>("TeacherUsername").Text = "vdemschke0";
             loginWindow.FindControl<TextBox>("TeacherPassword").Text = "fV6?6PL(u";
 
@@ -71,7 +91,7 @@ namespace AOOP_Homework2.Tests
                     .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 
             // Assert
-            Assert.Equal(string.Empty, vm.OutputFail);
+            Assert.Equal("Login failed!", vm.OutputFail);
         }
 
         [Fact]
