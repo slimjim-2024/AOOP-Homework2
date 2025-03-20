@@ -50,7 +50,7 @@ public partial class TeacherPageViewModel : ObservableObject
         LoadSubjects();
     }
 
-    private void LoadSubjects()
+    public void LoadSubjects()
     {
         TeachingSubjects = new(AllSubjects
             .Where(s => Teachers[currentTeacherIndex].Subjects.Contains(s.Id))

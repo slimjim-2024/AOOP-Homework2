@@ -38,15 +38,22 @@ public partial class TeacherPage : Window
         NewSubjectWindow creationDialog = new(ref ViewModel);
         creationDialog.Show();
     }
-
+    
     private void SaveChanges_Click(object? sender, RoutedEventArgs e)
     {
         if (ViewModel.SelectedSubject == null) return;
+        
         var subject = ViewModel.AllSubjects.Find(s => s.Id == ViewModel.SelectedSubject.Id);
         if (subject != null)
         {
+            // Update subject properties
             subject.Name = ViewModel.SelectedSubject.Name;
             subject.Description = ViewModel.SelectedSubject.Description;
+
+            // Refresh UI and data
+            ViewModel.LoadSubjects(); // Reload the subjects list
+            ViewModel.SaveAll();      // Persist changes to JSON files
+            ViewModel.SelectedSubject = null; // Clear selection
         }
     }
 }
