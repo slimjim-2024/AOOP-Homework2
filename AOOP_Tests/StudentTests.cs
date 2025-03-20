@@ -5,11 +5,22 @@ using Xunit;
 using AOOP_Homework2;
 using System.Text.Json;
 using Avalonia.Headless.XUnit;
+using Avalonia.Controls;
+using Avalonia.Headless;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 
 namespace AOOP_Homework2.Tests
 {
-    public class StudentTests
+    public class LoginTests
     {
+        public void TeacherLoginButton_Click_ValidCredentials_OpenTeacherPage()
+        {
+            Teacher TeacherValid = new("name1", "username1", PasswordManager.HashPassword("password1"));
+            Teacher TeacherInvalid = new("name2", "username2", PasswordManager.HashPassword("password2"));
+            
+            // Login.Teachers = {}
+        }
         // [Fact]
         // public void EnrollmentTest()
         // {
@@ -60,47 +71,111 @@ namespace AOOP_Homework2.Tests
         //     Assert.Contains(subjectDisplay, viewModel.AvailableSubects);
         // }
 
-  [AvaloniaFact]
-public void Should_Type_Text_Into_TextBox()
-{
+        [AvaloniaFact]
+        public void Login_Test_Wrong()
+        {
+            
 
-            // Arrange
+        //     // Arrange
             var students = new List<Student>
             {
                 new Student("Mitch", "1234", PasswordManager.HashPassword("1234"))
             };
-            var teachers = new List<Teacher>
+            var loginWindow = new Login();
+            var loginViewModel = loginWindow.DataContext as LoginViewModel;
+
+            var StudentUsername = loginWindow.FindControl<TextBox>("Username");
+            var StudentPassword = loginWindow.FindControl<TextBox>("Password");
+            StudentUsername.Focus();
+            loginWindow.KeyTextInput("124");
+            StudentPassword.Focus();
+            loginWindow.KeyTextInput("1234");
+            
+            loginWindow.FindControl<Button>("LoginButton")
+            .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+            Assert.Equal("Login failed!", loginViewModel.OutputFail);
+
+        //     // Act
+        //     loginViewModel.Username = "1234";
+        //     loginViewModel.Password = "1234";
+        //     var studentLoginResult = ValidateStudentLogin(loginWindow, loginViewModel.Username, loginViewModel.Password);
+
+        //     loginViewModel.TeacherUsername = "1234";
+        //     loginViewModel.TeacherPassword = "1234";
+        //     // var teacherLoginResult = ValidateTeacherLogin(loginWindow, loginViewModel.Username, loginViewModel.Password);
+
+        //     // // Assert
+        //     Assert.NotEqual(Guid.Empty, studentLoginResult);
+        //     // Assert.NotEqual(Guid.Empty, teacherLoginResult);
+        // }
+
+        // private Guid ValidateStudentLogin(Login loginWindow, string username, string password)
+        // {
+        //     var student = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json"))
+        //     .Find(user => user.Username == username && PasswordManager.VerifyPassword(password, user.HashedPassword));
+        //     return student?.Id ?? Guid.Empty;
+        // }
+
+        // private Guid ValidateTeacherLogin(Login loginWindow, string username, string password)
+        // {
+        //     var teacher = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")).Find(user => user.Username == username && PasswordManager.VerifyPassword(password, user.HashedPassword));
+        //     return teacher?.Id ?? Guid.Empty;
+        // }
+        
+        }
+         [AvaloniaFact]
+        public void Login_Test_Right()
+        {
+            
+
+        //     // Arrange
+            var students = new List<Student>
             {
-                new Teacher("Test Teacher", "1234", PasswordManager.HashPassword("1234"))
+                new Student("Mitch", "1234", PasswordManager.HashPassword("1234"))
             };
             var loginWindow = new Login();
             var loginViewModel = loginWindow.DataContext as LoginViewModel;
 
-            // Act
-            loginViewModel.Username = "1234";
-            loginViewModel.Password = "1234";
-            var studentLoginResult = ValidateStudentLogin(loginWindow, loginViewModel.Username, loginViewModel.Password);
+            var StudentUsername = loginWindow.FindControl<TextBox>("Username");
+            var StudentPassword = loginWindow.FindControl<TextBox>("Password");
+            StudentUsername.Focus();
+            loginWindow.KeyTextInput("1234");
+            StudentPassword.Focus();
+            loginWindow.KeyTextInput("1234");
+            
+            loginWindow.FindControl<Button>("LoginButton")
+            .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 
-            // loginViewModel.TeacherUsername = "1234";
-            // loginViewModel.TeacherPassword = "1234";
-            // var teacherLoginResult = ValidateTeacherLogin(loginWindow, loginViewModel.Username, loginViewModel.Password);
+            Assert.Equal("Login failed!", loginViewModel.OutputFail);
 
-            // // Assert
-            Assert.NotEqual(Guid.Empty, studentLoginResult);
-            // Assert.NotEqual(Guid.Empty, teacherLoginResult);
-        }
+        //     // Act
+        //     loginViewModel.Username = "1234";
+        //     loginViewModel.Password = "1234";
+        //     var studentLoginResult = ValidateStudentLogin(loginWindow, loginViewModel.Username, loginViewModel.Password);
 
-        private Guid ValidateStudentLogin(Login loginWindow, string username, string password)
-        {
-            var student = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json"))
-            .Find(user => user.Username == username && PasswordManager.VerifyPassword(password, user.HashedPassword));
-            return student?.Id ?? Guid.Empty;
-        }
+        //     loginViewModel.TeacherUsername = "1234";
+        //     loginViewModel.TeacherPassword = "1234";
+        //     // var teacherLoginResult = ValidateTeacherLogin(loginWindow, loginViewModel.Username, loginViewModel.Password);
 
-        private Guid ValidateTeacherLogin(Login loginWindow, string username, string password)
-        {
-            var teacher = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")).Find(user => user.Username == username && PasswordManager.VerifyPassword(password, user.HashedPassword));
-            return teacher?.Id ?? Guid.Empty;
+        //     // // Assert
+        //     Assert.NotEqual(Guid.Empty, studentLoginResult);
+        //     // Assert.NotEqual(Guid.Empty, teacherLoginResult);
+        // }
+
+        // private Guid ValidateStudentLogin(Login loginWindow, string username, string password)
+        // {
+        //     var student = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json"))
+        //     .Find(user => user.Username == username && PasswordManager.VerifyPassword(password, user.HashedPassword));
+        //     return student?.Id ?? Guid.Empty;
+        // }
+
+        // private Guid ValidateTeacherLogin(Login loginWindow, string username, string password)
+        // {
+        //     var teacher = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")).Find(user => user.Username == username && PasswordManager.VerifyPassword(password, user.HashedPassword));
+        //     return teacher?.Id ?? Guid.Empty;
+        // }
+        
         }
     }
 }

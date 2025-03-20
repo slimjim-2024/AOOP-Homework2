@@ -18,9 +18,9 @@ enum AccountType{
 }
 public partial class Login : Window
 {
-    protected internal List<Student> Students;
-    protected internal List<Teacher> Teachers;
-    protected internal List<Subject> Subjects;
+    public List<Student> Students;
+    public List<Teacher> Teachers;
+    public List<Subject> Subjects;
     public Login()
     {
         InitializeComponent();
@@ -28,12 +28,7 @@ public partial class Login : Window
         Students = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json")) ?? [];
         Teachers = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")) ?? [];
         Subjects = JsonSerializer.Deserialize<List<Subject>>(File.ReadAllText("subjects.json")) ?? [];
-
-
     }
-    private const int keySize = 64;
-    private const int iterations = 350000;
-    private HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA256;
 
     private void StudentLoginButton_Click(object sender, RoutedEventArgs e)
     {
@@ -45,9 +40,9 @@ public partial class Login : Window
             );
             if (student != null)
             {
-            StudentPage studentPage = new(student, ref Subjects, ref Students, ref Teachers);
-            studentPage.Show();
-            Close();
+                StudentPage studentPage = new(student, ref Subjects, ref Students, ref Teachers);
+                studentPage.Show();
+                Close();
             }
             else
             {
