@@ -46,7 +46,7 @@ public partial class StudentPage : Window
     }
     private void Enroll_button(object? sender, RoutedEventArgs e)
     {
-        SubjectSelect selectionDialog = new(ref ViewModel);
+        SubjectSelect selectionDialog = new(ref ViewModel, this);
         selectionDialog.Show();
     }
 }
