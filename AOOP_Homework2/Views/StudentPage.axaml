@@ -140,15 +140,7 @@
                 Name="UnenrollButton"
                 VerticalAlignment="Bottom"
                 Click="Unenroll_button"/>
-            <!--  -->
-            <Button Content="Action 3" 
-                Height="60"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                FontSize="16"
-                Name="Action3Button"
-                VerticalAlignment="Bottom"/>
+
             </StackPanel>
         </Grid>
     </DockPanel>

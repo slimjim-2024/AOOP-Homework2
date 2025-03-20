@@ -6,10 +6,9 @@ namespace AOOP_Homework2;
 public partial class SubjectSelectViewModel : ObservableObject
 {
     [ObservableProperty]
-    private SubjectDisplay _subject;
+    private SubjectDisplay _subject = new();
     [ObservableProperty]
-    private ObservableCollection<SubjectDisplay> _availableSubjects;
-
+    private ObservableCollection<SubjectDisplay> _availableSubjects = new();
     public SubjectSelectViewModel()
     {
 

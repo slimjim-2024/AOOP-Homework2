@@ -20,5 +20,5 @@ public partial class LoginViewModel : ObservableObject
     private string _TeacherPassword = "";
 
     [ObservableProperty]
-    private string _outputFail = "";
+    private string _outputFail = String.Empty;
 }

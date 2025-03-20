@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AOOP_Homework2;
 
@@ -14,6 +15,7 @@ public class Teacher : IUser
 
     public Teacher(string name, string username, string hashedPassword)
     {
+        Id = Guid.NewGuid(); // Add ID initialization
         Name = name;
         Username = username;
         HashedPassword = hashedPassword;

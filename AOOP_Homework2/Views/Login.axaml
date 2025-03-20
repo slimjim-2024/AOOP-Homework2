@@ -12,35 +12,56 @@
     </Window.DataContext>
     <TabControl HorizontalAlignment="Center">
       <TabItem Header="Student">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Text="Username:" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Name="Username" Width="200" Margin="5"/>
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Text="Password:" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Name="Password" Width="200" Margin="5" PasswordChar="*" />
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="LoginButton" Content="Login" Click="StudentLoginButton_Click" Margin="5" HotKey="Enter"/>
-        </StackPanel>
-        <TextBlock DockPanel.Dock="Top" Foreground="Red" HorizontalAlignment="Center" Margin="5" Text="{Binding OutputFail}"/>
-    </DockPanel>
-    </TabItem>
-    <TabItem Header="Teacher">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Text="Username:" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Name="TeacherUsername" Width="200" Margin="5"/>
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Text="Password:" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Name="TeacherPassword" Width="200" Margin="5" PasswordChar="*" />
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="TeacherLoginButton" Content="Login" Click="TeacherLoginButton_Click" Margin="5"/>
-        </StackPanel>
-    </DockPanel>
-    </TabItem>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Username:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Name="Username" 
+                         Text="{Binding Username}"
+                         Width="200" Margin="5"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Password:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Name="Password" 
+                         Text="{Binding Password}"
+                         Width="200" Margin="5" 
+                         PasswordChar="*"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="LoginButton" 
+                        Content="Login" 
+                        Click="StudentLoginButton_Click" 
+                        Margin="5" 
+                        HotKey="Enter"/>
+            </StackPanel>
+            <TextBlock DockPanel.Dock="Top" 
+                       Foreground="Red" 
+                       HorizontalAlignment="Center" 
+                       Margin="5" 
+                       Text="{Binding OutputFail}"/>
+        </DockPanel>
+      </TabItem>
+      <TabItem Header="Teacher">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Username:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Name="TeacherUsername" 
+                         Text="{Binding TeacherUsername}"
+                         Width="200" Margin="5"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Password:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Name="TeacherPassword" 
+                         Text="{Binding TeacherPassword}"
+                         Width="200" Margin="5" 
+                         PasswordChar="*"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="TeacherLoginButton" 
+                        Content="Login" 
+                        Click="TeacherLoginButton_Click" 
+                        Margin="5"/>
+            </StackPanel>
+        </DockPanel>
+      </TabItem>
     </TabControl>
 </Window>

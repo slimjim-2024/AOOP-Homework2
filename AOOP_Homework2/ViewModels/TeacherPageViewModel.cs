@@ -17,7 +17,7 @@ public partial class TeacherPageViewModel : ObservableObject
     private string _teacherName = "";
     
     [ObservableProperty]
-    private SubjectDisplay _selectedSubject;
+    private SubjectDisplay _selectedSubject = new();
     
     [ObservableProperty]
     private ObservableCollection<SubjectDisplay> _teachingSubjects = [];
@@ -25,7 +25,7 @@ public partial class TeacherPageViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<StudentDisplay> _enrolledStudents = [];
 
-    protected internal List<Subject> AllSubjects = [];
+    public List<Subject> AllSubjects { get; private set; } = [];
     protected internal List<Teacher> Teachers = [];
     protected internal List<Student> Students = [];
 

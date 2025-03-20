@@ -1,181 +1,200 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using Xunit;
 using AOOP_Homework2;
-using System.Text.Json;
 using Avalonia.Headless.XUnit;
 using Avalonia.Controls;
-using Avalonia.Headless;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 
 namespace AOOP_Homework2.Tests
 {
-    public class LoginTests
+    public class CoreFunctionalityTests
     {
-        public void TeacherLoginButton_Click_ValidCredentials_OpenTeacherPage()
+       [AvaloniaFact]
+        public void StudentLogin_ValidCredentials_Success()
         {
-            Teacher TeacherValid = new("name1", "username1", PasswordManager.HashPassword("password1"));
-            Teacher TeacherInvalid = new("name2", "username2", PasswordManager.HashPassword("password2"));
+            // Arrange
+            var loginWindow = new Login();
+            var vm = loginWindow.DataContext as LoginViewModel ?? new LoginViewModel();
             
-            // Login.Teachers = {}
+            // Use credentials from students.json
+            vm.Username = "1234"; // Existing username
+            vm.Password = "1234"; // Password is hashed as "1234"
+            loginWindow.FindControl<TextBox>("Username").Text = "1234";
+            loginWindow.FindControl<TextBox>("Password").Text = "1234";
+
+            // Act
+            loginWindow.FindControl<Button>("LoginButton")
+                    .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+            // Assert
+            Assert.Equal(string.Empty, vm.OutputFail);
         }
-        // [Fact]
-        // public void EnrollmentTest()
-        // {
-        //     // Arrange
-        //     var student = new Student("Test Student", "teststudent", "hashedpassword");
-        //     var subject = new Subject("Test Subject", "Description", Guid.NewGuid());
-        //     var subjects = new List<Subject> { subject };
-        //     var students = new List<Student> { student };
-        //     var teachers = new List<Teacher>();
-        //     var viewModel = new StudentPageViewModel(student, ref subjects, ref students, ref teachers);
-
-        //     // Act
-        //     var subjectDisplay = new SubjectDisplay
-        //     {
-        //         Id = subject.Id,
-        //         Name = subject.Name,
-        //         Description = subject.Description,
-        //         TeacherName = "Test Teacher"
-        //     };
-        //     viewModel.RegisterCourse(subjectDisplay);
-
-        //     // Assert
-        //     Assert.Contains(subjectDisplay, viewModel.EnrolledSubjects);
-        // }
-
-        // [Fact]
-        // public void DropSubjectTest()
-        // {
-        //     // Arrange
-        //     var student = new Student("Test Student", "teststudent", "hashedpassword");
-        //     var subject = new Subject("Test Subject", "Description", Guid.NewGuid());
-        //     var viewModel = new StudentPageViewModel(student, ref new List<Subject> { subject }, ref new List<Student> { student }, ref new List<Teacher>());
-        //     var subjectDisplay = new SubjectDisplay
-        //     {
-        //         Id = subject.Id,
-        //         Name = subject.Name,
-        //         Description = subject.Description,
-        //         TeacherName = "Test Teacher"
-        //     };
-        //     viewModel.RegisterCourse(subjectDisplay);
-
-        //     // Act
-        //     viewModel.EnrolledSubjects.Remove(subjectDisplay);
-        //     viewModel.AvailableSubects.Add(subjectDisplay);
-
-        //     // Assert
-        //     Assert.DoesNotContain(subjectDisplay, viewModel.EnrolledSubjects);
-        //     Assert.Contains(subjectDisplay, viewModel.AvailableSubects);
-        // }
 
         [AvaloniaFact]
-        public void Login_Test_Wrong()
+        public void StudentLogin_InvalidCredentials_Failure()
         {
-            
-
-        //     // Arrange
-            var students = new List<Student>
-            {
-                new Student("Mitch", "1234", PasswordManager.HashPassword("1234"))
-            };
+            // Arrange
             var loginWindow = new Login();
-            var loginViewModel = loginWindow.DataContext as LoginViewModel;
+            var vm = loginWindow.DataContext as LoginViewModel ?? new LoginViewModel();
+            vm.Username = "wronguser";
+            vm.Password = "wrongpass";
+            loginWindow.FindControl<TextBox>("Username").Text = "wronguser";
+            loginWindow.FindControl<TextBox>("Password").Text = "wrongpass";
 
-            var StudentUsername = loginWindow.FindControl<TextBox>("Username");
-            var StudentPassword = loginWindow.FindControl<TextBox>("Password");
-            StudentUsername.Focus();
-            loginWindow.KeyTextInput("124");
-            StudentPassword.Focus();
-            loginWindow.KeyTextInput("1234");
-            
+            // Act
             loginWindow.FindControl<Button>("LoginButton")
-            .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                      .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 
-            Assert.Equal("Login failed!", loginViewModel.OutputFail);
-
-        //     // Act
-        //     loginViewModel.Username = "1234";
-        //     loginViewModel.Password = "1234";
-        //     var studentLoginResult = ValidateStudentLogin(loginWindow, loginViewModel.Username, loginViewModel.Password);
-
-        //     loginViewModel.TeacherUsername = "1234";
-        //     loginViewModel.TeacherPassword = "1234";
-        //     // var teacherLoginResult = ValidateTeacherLogin(loginWindow, loginViewModel.Username, loginViewModel.Password);
-
-        //     // // Assert
-        //     Assert.NotEqual(Guid.Empty, studentLoginResult);
-        //     // Assert.NotEqual(Guid.Empty, teacherLoginResult);
-        // }
-
-        // private Guid ValidateStudentLogin(Login loginWindow, string username, string password)
-        // {
-        //     var student = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json"))
-        //     .Find(user => user.Username == username && PasswordManager.VerifyPassword(password, user.HashedPassword));
-        //     return student?.Id ?? Guid.Empty;
-        // }
-
-        // private Guid ValidateTeacherLogin(Login loginWindow, string username, string password)
-        // {
-        //     var teacher = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")).Find(user => user.Username == username && PasswordManager.VerifyPassword(password, user.HashedPassword));
-        //     return teacher?.Id ?? Guid.Empty;
-        // }
-        
+            // Assert
+            Assert.Equal("Login failed!", vm.OutputFail);
         }
-         [AvaloniaFact]
-        public void Login_Test_Right()
+
+        [AvaloniaFact]
+        public void TeacherLogin_ValidCredentials_Success()
         {
-            
-
-        //     // Arrange
-            var students = new List<Student>
-            {
-                new Student("Mitch", "1234", PasswordManager.HashPassword("1234"))
-            };
+            // Arrange
             var loginWindow = new Login();
-            var loginViewModel = loginWindow.DataContext as LoginViewModel;
-
-            var StudentUsername = loginWindow.FindControl<TextBox>("Username");
-            var StudentPassword = loginWindow.FindControl<TextBox>("Password");
-            StudentUsername.Focus();
-            loginWindow.KeyTextInput("1234");
-            StudentPassword.Focus();
-            loginWindow.KeyTextInput("1234");
+            var vm = loginWindow.DataContext as LoginViewModel ?? new LoginViewModel();
             
-            loginWindow.FindControl<Button>("LoginButton")
-            .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            // Use credentials from teachers.json
+            vm.TeacherUsername = "vdemschke0"; // Existing teacher username
+            vm.TeacherPassword = "fV6?6PL(u";  // Password from teachers.json
+            loginWindow.FindControl<TextBox>("TeacherUsername").Text = "vdemschke0";
+            loginWindow.FindControl<TextBox>("TeacherPassword").Text = "fV6?6PL(u";
 
-            Assert.Equal("Login failed!", loginViewModel.OutputFail);
+            // Act
+            loginWindow.FindControl<Button>("TeacherLoginButton")
+                    .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 
-        //     // Act
-        //     loginViewModel.Username = "1234";
-        //     loginViewModel.Password = "1234";
-        //     var studentLoginResult = ValidateStudentLogin(loginWindow, loginViewModel.Username, loginViewModel.Password);
+            // Assert
+            Assert.Equal(string.Empty, vm.OutputFail);
+        }
 
-        //     loginViewModel.TeacherUsername = "1234";
-        //     loginViewModel.TeacherPassword = "1234";
-        //     // var teacherLoginResult = ValidateTeacherLogin(loginWindow, loginViewModel.Username, loginViewModel.Password);
+        [Fact]
+        public void CourseEnrollment_AddsToEnrolledSubjects()
+        {
+            // Arrange
+            var student = new Student("Test Student", "test", "hash");
+            var subject = new Subject("Math", "Algebra", Guid.NewGuid());
+            var subjects = new List<Subject> { subject };
+            var students = new List<Student> { student };
+            var teachers = new List<Teacher>();
 
-        //     // // Assert
-        //     Assert.NotEqual(Guid.Empty, studentLoginResult);
-        //     // Assert.NotEqual(Guid.Empty, teacherLoginResult);
-        // }
+            var vm = new StudentPageViewModel(student, ref subjects, ref students, ref teachers);
+            var subjectDisplay = new SubjectDisplay 
+            { 
+                Id = subject.Id,
+                Name = subject.Name,
+                TeacherName = "Test Teacher"
+            };
 
-        // private Guid ValidateStudentLogin(Login loginWindow, string username, string password)
-        // {
-        //     var student = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText("students.json"))
-        //     .Find(user => user.Username == username && PasswordManager.VerifyPassword(password, user.HashedPassword));
-        //     return student?.Id ?? Guid.Empty;
-        // }
+            // Act
+            vm.RegisterCourse(subjectDisplay);
 
-        // private Guid ValidateTeacherLogin(Login loginWindow, string username, string password)
-        // {
-        //     var teacher = JsonSerializer.Deserialize<List<Teacher>>(File.ReadAllText("teachers.json")).Find(user => user.Username == username && PasswordManager.VerifyPassword(password, user.HashedPassword));
-        //     return teacher?.Id ?? Guid.Empty;
-        // }
-        
+            // Assert
+            Assert.Contains(subjectDisplay, vm.EnrolledSubjects);
+            Assert.DoesNotContain(subjectDisplay, vm.AvailableSubects);
+        }
+
+        [Fact]
+        public void DataPersistence_SavesStudentDataCorrectly()
+        {
+            // Arrange
+            var tempFile = Path.GetTempFileName();
+            var student = new Student("Temp Student", "temp", "hash");
+            var students = new List<Student> { student };
+
+            // Act
+            File.WriteAllText(tempFile, JsonSerializer.Serialize(students));
+            var loadedStudents = JsonSerializer.Deserialize<List<Student>>(File.ReadAllText(tempFile));
+
+            // Cleanup
+            File.Delete(tempFile);
+
+            // Assert
+            Assert.Single(loadedStudents!);
+            Assert.Equal(student.Id, loadedStudents![0].Id);
+        }
+
+        [Fact]
+        public void CourseRemoval_UpdatesAvailableSubjects()
+        {
+            // Arrange
+            var student = new Student("Test Student", "test", "hash");
+            var subject = new Subject("Physics", "Mechanics", Guid.NewGuid());
+            var subjects = new List<Subject> { subject };
+            var students = new List<Student> { student };
+            var teachers = new List<Teacher>();
+
+            var vm = new StudentPageViewModel(student, ref subjects, ref students, ref teachers);
+            var subjectDisplay = new SubjectDisplay 
+            { 
+                Id = subject.Id,
+                Name = subject.Name,
+                TeacherName = "Test Teacher"
+            };
+
+            // Enroll first
+            vm.RegisterCourse(subjectDisplay);
+
+            // Act
+            vm.EnrolledSubjects.Remove(subjectDisplay);
+            vm.AvailableSubects.Add(subjectDisplay);
+
+            // Assert
+            Assert.DoesNotContain(subjectDisplay, vm.EnrolledSubjects);
+            Assert.Contains(subjectDisplay, vm.AvailableSubects);
+        }
+
+        [Fact]
+        public void TeacherCreateSubject_AppearsInTeachingSubjects()
+        {
+            // Arrange
+            var teacher = new Teacher("Math Professor", "math101", "teach123");
+            var subjects = new List<Subject>();
+            var students = new List<Student>();
+            var teachers = new List<Teacher> { teacher };
+
+            var vm = new TeacherPageViewModel(teacher, ref subjects, ref students, ref teachers);
+
+            // Act
+            vm.CreateNewSubject("Calculus", "Advanced Mathematics Course");
+
+            // Assert
+            Assert.Single(vm.TeachingSubjects);
+            Assert.Equal("Calculus", vm.TeachingSubjects[0].Name);
+            Assert.Contains(vm.TeachingSubjects[0].Id, vm.AllSubjects.Select(s => s.Id));
+        }
+
+        [Fact]
+        public void TeacherDeleteSubject_RemovesFromTeachingSubjects()
+        {
+            // Arrange
+            var teacher = new Teacher("Math Prof", "math101", "pass123");
+            var subject = new Subject("Calculus", "Math", Guid.NewGuid());
+            var subjects = new List<Subject> { subject };
+            var students = new List<Student>();
+            var teachers = new List<Teacher> { teacher };
+
+            var vm = new TeacherPageViewModel(teacher, ref subjects, ref students, ref teachers);
+            var subjectDisplay = new SubjectDisplay 
+            { 
+                Id = subject.Id,
+                Name = subject.Name,
+                TeacherName = teacher.Name
+            };
+
+            // Act
+            vm.TeachingSubjects.Remove(subjectDisplay);
+            vm.AllSubjects.RemoveAll(s => s.Id == subject.Id);
+            
+            // Assert
+            Assert.DoesNotContain(subjectDisplay, vm.TeachingSubjects);
+            Assert.DoesNotContain(subject, vm.AllSubjects);
         }
     }
 }

@@ -19,7 +19,7 @@ public partial class StudentPageViewModel : ObservableObject
     [ObservableProperty]
     private string _studentId = "";
     [ObservableProperty]
-    private SubjectDisplay _selectedSubject;
+    private SubjectDisplay _selectedSubject = new();
 
     // [ObservableProperty]
     // public List<Subject> _enrolledSubjects = [];
@@ -95,7 +95,7 @@ public partial class StudentPageViewModel : ObservableObject
         File.WriteAllText("students.json", JsonSerializer.Serialize(Students, new JsonSerializerOptions {WriteIndented = true}));
     }
 
-    protected internal void RegisterCourse(SubjectDisplay subject)
+    public void RegisterCourse(SubjectDisplay subject)
     {
         EnrolledSubjects.Add(subject);
         AvailableSubects.Remove(subject);
