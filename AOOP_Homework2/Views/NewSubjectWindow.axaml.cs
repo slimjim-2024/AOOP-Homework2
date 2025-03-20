@@ -21,7 +21,7 @@ public partial class NewSubjectWindow : Window
         if (!string.IsNullOrWhiteSpace(name))
         {
             _viewModel.CreateNewSubject(name, description);
-            Close();
+            this.Close();
         }
     }
 }
