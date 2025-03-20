@@ -42,11 +42,11 @@ public partial class TeacherPage : Window
     private void SaveChanges_Click(object? sender, RoutedEventArgs e)
     {
         if (ViewModel.SelectedSubject == null) return;
-        var subject = ViewModel.AllSubjects.Find(s => s.Id == ViewModel.SelectedSubject.Id);
-        if (subject != null)
+        var subjectIndex = ViewModel.AllSubjects.FindIndex(s => s.Id == ViewModel.SelectedSubject.Id);
+        if (subjectIndex != -1)
         {
-            subject.Name = ViewModel.SelectedSubject.Name;
-            subject.Description = ViewModel.SelectedSubject.Description;
+            AllSubjects[subjectIndex].Name = ViewModel.SelectedSubject.Name;
+            AllSubjects[subject].Description = ViewModel.SelectedSubject.Description;
         }
     }
 }
