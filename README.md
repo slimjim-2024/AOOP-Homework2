@@ -17,25 +17,18 @@ Student Functionality:
 • Enroll in available subjects
 • Drop from enrolled subjects
 
-Student Functionalityt:
-• View available subjects
-• View enrolled subjects
-• View subject's details (Name, teacher, description etc.)
-• Enroll in available subjects
-• Drop from enrolled subjects
-
 Teacher Functionalityr:
-• View subjects they teach
-• Create a new subjects
-• Edit subject's details
-• Delete their subject
+• View own subjects
+• Create new subjects
+• Delete own subjects
+• Edit own subject's details
 
 Data Persistence
-• Automatic save/load from JSON files:
+• Data is stored in JSON files:
   - `students.json`
   - `teachers.json`
   - `subjects.json`
-• Save/load data to/from data.json on app start/exit.
+• Automatically loaded on start and saved on exit.
 
 UI Components
 • Login screen.
@@ -60,9 +53,10 @@ Build the project:
 Run the application:
 • dotnet run
 
-easy acess to check out the app: 
-a student username: 1234
-a student pasword: 1234
+IMPORTANT!
+JSON data files must be copied into the same folder as the executable.
+These JSON files are found in the JSONFiles folder.
 
-a teacher username: 1234
-a teacher pasword: 1234
+Student and teacher test users have both the following credentials:
+Username: 1234
+Password: 1234
