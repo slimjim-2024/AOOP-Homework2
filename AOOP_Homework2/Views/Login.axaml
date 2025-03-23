@@ -30,8 +30,7 @@
                 <Button Name="LoginButton" 
                         Content="Login" 
                         Click="StudentLoginButton_Click" 
-                        Margin="5" 
-                        HotKey="Enter"/>
+                        Margin="5"/>
             </StackPanel>
             <TextBlock DockPanel.Dock="Top" 
                        Foreground="Red" 

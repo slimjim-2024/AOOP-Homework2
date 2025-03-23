@@ -90,6 +90,20 @@ public partial class TeacherPageViewModel : ObservableObject
         });
     }
 
+    public void DeleteSubject(Guid idToDelete)
+    {
+        // Removes ids from lists 
+        foreach (var student in Students)
+        {
+            student.EnrolledSubjects.Remove(idToDelete);
+        }
+        currentTeacher.Subjects.Remove(idToDelete);
+
+        // Removes subject from all subjects
+        var subjectToDelete = AllSubjects.Single(x => x.Id == idToDelete);
+        AllSubjects.Remove(subjectToDelete);
+    }
+
     public void UpdateEnrolledStudents()
     {
         if (SelectedSubject == null) return;
