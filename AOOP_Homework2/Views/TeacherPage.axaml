@@ -61,6 +61,9 @@
                 <Button Content="Save Changes" Click="SaveChanges_Click" 
                       Height="40" FontSize="16"/>
                 
+                <Button Content="Delete Selected Subject" Click="DeleteSubject_Click" 
+                      Height="40" FontSize="16"/>
+
                 <Button Content="Create New Subject" Click="CreateSubject_Click" 
                       Height="40" FontSize="16"/>
                 

@@ -56,4 +56,11 @@ public partial class TeacherPage : Window
             ViewModel.SelectedSubject = null; // Clear selection
         }
     }
+
+    private void DeleteSubject_Click(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel.SelectedSubject == null) return;
+        ViewModel.DeleteSubject(ViewModel.SelectedSubject.Id);
+        ViewModel.LoadSubjects();
+    }
 }
