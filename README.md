@@ -1,36 +1,48 @@
 # AOOP-Homework2
 
-# The Requiments
+## The Requiments
 
-Core Data Models:
+### Core Data Models
+
 • Student class with id, name, username, password, enrolledSubjects.
 • Teacher class with id, name, username, password, subjects.
 • Subject class with id, name, description, teacherId, studentsEnrolled.
 
-Login System
+
+### Login System
+
 • Role-based authentication for Students and Teachers
 
-Student Functionality:
+
+### Student Functionality
+
 • View available subjects
 • View enrolled subjects
 • View subject's details (Name, teacher, description etc.)
 • Enroll in available subjects
 • Drop from enrolled subjects
 
-Teacher Functionalityr:
+
+### Teacher Functionality
+
 • View own subjects
 • Create new subjects
 • Delete own subjects
 • Edit own subject's details
 
-Data Persistence
+
+### Data Persistence
+
 • Data is stored in JSON files:
   - `students.json`
   - `teachers.json`
   - `subjects.json`
+
 • Automatically loaded on start and saved on exit.
 
-UI Components
+
+### UI Components
+
 • Login screen.
 • Student dashboard with tabs for available/enrolled subjects.
 • Teacher dashboard with "My Subjects" list and buttons.
@@ -47,10 +59,10 @@ UI Components
    ```bash
    git clone https://github.com/slimjim-2024/AOOP-Homework2.git cd AOOP-Homework2
 
-Build the project:
+2. Build the project:
 • dotnet build
 
-Run the application:
+3. Run the application:
 • dotnet run
 
 IMPORTANT!
