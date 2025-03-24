@@ -57,7 +57,7 @@
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/slimjim-2024/AOOP-Homework2.git cd AOOP-Homework2
+   git clone https://github.com/slimjim-2024/AOOP-Homework2.git
 
 2. Build the project:
 • dotnet build
