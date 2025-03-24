@@ -69,6 +69,6 @@ IMPORTANT!
 JSON data files must be copied into the same folder as the executable.
 These JSON files are found in the JSONFiles folder.
 
-Student and teacher test users have both the following credentials:
+Student and teacher test users both have the same user and paswords:
 Username: 1234
 Password: 1234

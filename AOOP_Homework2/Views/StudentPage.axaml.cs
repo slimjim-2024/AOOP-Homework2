@@ -32,7 +32,7 @@ public partial class StudentPage : Window
         ViewModel.StudentName = currentStudent.Name;
         ViewModel.StudentId = currentStudent.Id.ToString();
         this.Closing += (sender, e) => {ViewModel.SaveAll();};
-        // ViewModel.EnrolledSubjects = ViewModel.EnrolledSubjects.FindAll(sub => sub..Contains(currentStudent.Id));
+
     }
 
     private void Unenroll_button(object? sender, RoutedEventArgs e)
